@@ -1,14 +1,14 @@
 class Page < ActiveRecord::Base
   require 'digest/md5'
   
-  attr_protected :domain_id, :path, :md5
-  attr_accessor :url
+  attr_protected :domain_id, :path, :url_hash
+  attr_accessor :url_hash
   attr_reader :parts, :domain, :path
    
   belongs_to :domain
   acts_as_taggable
     
-  validates_presence_of :path, :domain_id, :md5
+  validates_presence_of :path, :domain_id, :url_hash
   validates_uniqueness_of :path, :scope => :domain_id
 
   before_validation :parse_path  
@@ -31,7 +31,7 @@ class Page < ActiveRecord::Base
     domain = Domain.find( self.domain_id ) unless self.domain_id.nil?
     if domain.nil?
       hash = Digest::MD5.hexdigest( self.parts.host )
-      domain = Domain.find_by_md5( hash )
+      domain = Domain.find_by_hostname_hash( hash )
       if domain.nil?
         domain = Domain.create({ :hostname => self.parts.host })
       end
@@ -57,7 +57,7 @@ class Page < ActiveRecord::Base
   end
   
   def build_hash(url=self.url)
-     self.md5 = Digest::MD5.hexdigest( url ) unless url.nil?
+     self.url_hash = Digest::MD5.hexdigest( url ) unless url.nil?
   end
   
 end

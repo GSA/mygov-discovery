@@ -15,18 +15,18 @@ ActiveRecord::Schema.define(:version => 20121113154347) do
 
   create_table "domains", :force => true do |t|
     t.string   "hostname_reversed"
-    t.string   "md5" 
+    t.string   "hostname_hash" 
   end
 
-  add_index "domains", ["md5"], :name => "index_domains_on_md5", :unique => true
+  add_index "domains", ["hostname_hash"], :name => "index_domains_on_hostname_hash", :unique => true
 
   create_table "pages", :force => true do |t|
-    t.string   "md5"
+    t.string   "url_hash"
     t.string   "path"
     t.integer  "domain_id"
   end
 
-  add_index "pages", ["md5"], :name => "index_pages_on_md5", :unique => true
+  add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

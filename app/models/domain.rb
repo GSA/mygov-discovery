@@ -5,12 +5,12 @@ class Domain < ActiveRecord::Base
   attr_accessor :hostname
   attr_accessible :hostname
   validates_uniqueness_of :hostname_reversed
-  validates_presence_of :hostname_reversed, :md5
+  validates_presence_of :hostname_reversed, :hostname_hash
   
   before_validation :build_hash
   
   def build_hash( hostname = self.hostname )
-    self.md5 = Digest::MD5.hexdigest( hostname ) unless hostname.nil?
+    self.hostname_hash = Digest::MD5.hexdigest( hostname ) unless hostname.nil?
   end
   
   def hostname=(hostname)
