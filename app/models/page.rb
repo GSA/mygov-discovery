@@ -30,10 +30,10 @@ class Page < ActiveRecord::Base
   def domain
     domain = Domain.find( self.domain_id ) unless self.domain_id.nil?
     if domain.nil?
-      hash = Digest::MD5.hexdigest( self.parts.domain )
+      hash = Digest::MD5.hexdigest( self.parts.host )
       domain = Domain.find_by_md5( hash )
       if domain.nil?
-        domain = Domain.create({ :hostname => self.parts.domain })
+        domain = Domain.create({ :hostname => self.parts.host })
       end
     end
     domain

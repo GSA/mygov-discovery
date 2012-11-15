@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20121113154347) do
 
   create_table "domains", :force => true do |t|
-    t.string   "hostname"
+    t.string   "hostname_reversed"
     t.string   "md5" 
   end
 
