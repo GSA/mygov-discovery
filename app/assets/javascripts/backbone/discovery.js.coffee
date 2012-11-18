@@ -9,3 +9,5 @@ window.Discovery =
   Collections: {}
   Routers: {}
   Views: {}
+  
+#window.JST = {}

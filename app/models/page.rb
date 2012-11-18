@@ -1,9 +1,9 @@
 class Page < ActiveRecord::Base
   require 'digest/md5'
   
-  attr_protected :domain_id, :path, :url_hash
-  attr_accessor :url_hash
-  attr_reader :parts, :domain, :path
+  attr_protected :domain_id, :path, :url_hash, :tags
+  attr_accessible :url, :tag_list
+  attr_accessor :url_hash, :parts, :domain, :path, :related
    
   belongs_to :domain
   acts_as_taggable
@@ -52,8 +52,8 @@ class Page < ActiveRecord::Base
     self.path = path();
   end
   
-  def to_json(options={})
-    { :url => self.url(), :domain => self.domain(), :parts => self.parts(), :path => self.path(), :tags => self.tags, :related => self.find_related_tags }.to_json
+  def as_json(options={})
+    { :id => self.id, :url => self.url(), :domain => self.domain(), :parts => self.parts(), :path => self.path(), :tags => self.tags, :related => self.find_related_tags, :tag_list => self.tag_list.to_s }
   end
   
   def build_hash(url=self.url)

@@ -6,15 +6,15 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @pages }
+      format.json { render json: @pages, :callback => params[:callback] }
     end
   end
 
-  # GET /pages/1
-  # GET /pages/1.json
-  def show      
+  def lookup
+    require 'digest/md5'
+      
     parts = Addressable::URI.parse( params[:url] ) 
-    domain = Domain.find_by_host( parts.host )
+    domain = Domain.find_by_hostname_hash( Digest::MD5.hexdigest( parts.host ) )
     @page = Page.find_by_domain_id_and_path( domain.id, parts.path ) unless domain.nil?
     
     if @page.nil? 
@@ -25,7 +25,20 @@ class PagesController < ApplicationController
     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @page, :status => status }
+      format.json { render json: @page, :status => status, :callback => params[:callback] }
+    end
+  end
+  
+  # GET /pages/1
+  # GET /pages/1.json
+  def show
+    require 'digest/md5'
+    
+    @page = Page.find(params[:id])
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @page, :callback => params[:callback] }
     end
   end
 
@@ -72,7 +85,7 @@ class PagesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @page.errors, status: :unprocessable_entity }
+        format.json { render json: @page.errors, status: :unprocessable_entity, :callback => params[:callback] }
       end
     end
   end
@@ -85,7 +98,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to pages_url }
-      format.json { head :no_content }
+      format.json { head :no_content, :callback => params[:callback] }
     end
   end
 end

@@ -58,7 +58,8 @@ Discovery::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
   
   root :to => 'home#mygov_bar'
-  get '/page', :to => 'pages#show'
+  get '/pages/lookup', :to => 'pages#lookup', :as => "pages_lookup"
   resources :pages
+
 
 end
