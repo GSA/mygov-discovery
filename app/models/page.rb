@@ -2,19 +2,18 @@ class Page < ActiveRecord::Base
   require 'digest/md5'
   
   attr_protected :domain_id, :path, :url_hash, :tags
-  attr_accessible :url, :tag_list
-  attr_accessor :url_hash, :parts, :domain, :path, :related
+  attr_accessible :url, :tag_list, :title
+  attr_accessor :parts, :domain, :related
    
   belongs_to :domain
   acts_as_taggable
+
+  before_validation :parse_path, :build_hash, :assign_domain
     
   validates_presence_of :path, :domain_id, :url_hash
   validates_uniqueness_of :path, :scope => :domain_id
+  validates_uniqueness_of :url_hash
 
-  before_validation :parse_path  
-  before_validation :assign_domain
-  before_validation :build_hash 
-  
   def url=(url)
     @url = PostRank::URI.clean( url )
   end
@@ -52,12 +51,15 @@ class Page < ActiveRecord::Base
     self.path = path();
   end
   
-  def as_json(options={})
-    { :id => self.id, :url => self.url(), :domain => self.domain(), :parts => self.parts(), :path => self.path(), :tags => self.tags, :related => self.find_related_tags, :tag_list => self.tag_list.to_s }
+  def as_json(options={ :related => false })
+    puts options[:related].inspect
+    json = { :id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :tags => self.tags, :tag_list => self.tag_list.to_s }
+    json = json.merge({ :related => find_related_tags }) unless !options[:related]
+    json
   end
   
   def build_hash(url=self.url)
-     self.url_hash = Digest::MD5.hexdigest( url ) unless url.nil?
+     self.url_hash = Digest::MD5.hexdigest( url )
   end
   
 end

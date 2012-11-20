@@ -11,11 +11,9 @@ class PagesController < ApplicationController
   end
 
   def lookup
-    require 'digest/md5'
-      
-    parts = Addressable::URI.parse( params[:url] ) 
-    domain = Domain.find_by_hostname_hash( Digest::MD5.hexdigest( parts.host ) )
-    @page = Page.find_by_domain_id_and_path( domain.id, parts.path ) unless domain.nil?
+    page = Page.new
+    page.url = params[:url]
+    @page = Page.find_by_url_hash( page.build_hash )
     
     if @page.nil? 
       status = 404 
@@ -25,7 +23,7 @@ class PagesController < ApplicationController
     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @page, :status => status, :callback => params[:callback] }
+      format.json { render :json => @page, :status => status, :callback => params[:callback] }
     end
   end
   
@@ -38,7 +36,7 @@ class PagesController < ApplicationController
     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @page, :callback => params[:callback] }
+      format.json { render json: @page.as_json( :related => true ), :callback => params[:callback] }
     end
   end
 

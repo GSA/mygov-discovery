@@ -21,4 +21,8 @@ class Domain < ActiveRecord::Base
     self.hostname_reversed.split('.').reverse.join('.')
   end
   
+  def as_json(options={})
+    { :hostname => hostname, :hostname_hash => hostname_hash, :id => id }
+  end
+  
 end

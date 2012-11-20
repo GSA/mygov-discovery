@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20121113154347) do
     t.string   "url_hash"
     t.string   "path"
     t.integer  "domain_id"
+    t.string   "title"
   end
 
   add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
