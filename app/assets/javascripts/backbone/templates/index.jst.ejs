@@ -1,5 +1,23 @@
-<label for="search">Search:</label> <input type="search" />
-<label for="tags">Tags:</label> <input type="text" name="tags" id="tags" value="<%= tag_list %>" />
-<button id="save_tags">Save Tags</button>
-<ul id="related">
-</ul>
+<div class="pane" id="search">
+  <label for="search">Search:</label> <input type="search" />
+</div>
+
+<div class="pane" id="rating">
+Was this page helpful? * * * * *
+</div>
+
+<div class="pane" id="tags">
+  <label for="tags">Tags:</label> <input type="text" name="tags" id="tags" value="<%= tag_list %>" />
+  <button id="save_tags">Save Tags</button>
+</div>
+
+<div class="pane" id="related">
+
+  Related:
+  <ul id="related">
+      <% for(var i=0; i< related.length; i++) { %>
+        <li><a href='<%= related[i].url %>'><%= related[i].title %></a></li>
+      <% } %>
+  </ul>
+  
+</div>

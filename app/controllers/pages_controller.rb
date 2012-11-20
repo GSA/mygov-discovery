@@ -23,7 +23,7 @@ class PagesController < ApplicationController
     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @page, :status => status, :callback => params[:callback] }
+      format.json { render :json => @page.as_json( :related => true ), :status => status, :callback => params[:callback] }
     end
   end
   

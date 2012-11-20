@@ -14,6 +14,8 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :path, :scope => :domain_id
   validates_uniqueness_of :url_hash
 
+  #acts_as_rateable
+
   def url=(url)
     @url = PostRank::URI.clean( url )
   end
@@ -53,7 +55,7 @@ class Page < ActiveRecord::Base
   
   def as_json(options={ :related => false })
     puts options[:related].inspect
-    json = { :id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :tags => self.tags, :tag_list => self.tag_list.to_s }
+    json = { :id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :tags => self.tags, :tag_list => self.tag_list.to_s, :title => title }
     json = json.merge({ :related => find_related_tags }) unless !options[:related]
     json
   end
