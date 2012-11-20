@@ -11,20 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113154347) do
+ActiveRecord::Schema.define(:version => 20121120163311) do
 
   create_table "domains", :force => true do |t|
-    t.string   "hostname_reversed"
-    t.string   "hostname_hash" 
+    t.string "hostname_reversed"
+    t.string "hostname_hash"
   end
 
   add_index "domains", ["hostname_hash"], :name => "index_domains_on_hostname_hash", :unique => true
 
   create_table "pages", :force => true do |t|
-    t.string   "url_hash"
-    t.string   "path"
-    t.integer  "domain_id"
-    t.string   "title"
+    t.string  "url_hash"
+    t.string  "path"
+    t.integer "domain_id"
+    t.string  "title"
   end
 
   add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
@@ -44,6 +44,11 @@ ActiveRecord::Schema.define(:version => 20121113154347) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "users", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

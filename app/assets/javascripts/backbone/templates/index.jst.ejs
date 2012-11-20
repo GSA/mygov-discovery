@@ -1,14 +1,29 @@
+<div class="pane" id="notifications">
+  0
+</div>
+
 <div class="pane" id="search">
   <label for="search">Search:</label> <input type="search" />
 </div>
 
 <div class="pane" id="rating">
-Was this page helpful? * * * * *
+  Was this page helpful?<br />
+  <form id="rating_form">
+    <input name="star1" type="radio" class="star {half:true}"/>
+    <input name="star1" type="radio" class="star {half:true}"/>
+    <input name="star1" type="radio" class="star {half:true}"/>
+    <input name="star1" type="radio" class="star {half:true}"/>
+    <input name="star1" type="radio" class="star {half:true}"/>
+  </form>
+  <br/>
 </div>
 
 <div class="pane" id="tags">
-  <label for="tags">Tags:</label> <input type="text" name="tags" id="tags" value="<%= tag_list %>" />
-  <button id="save_tags">Save Tags</button>
+  <form id="tag_form">
+    <label for="tag_list">Tags:</label> 
+    <input type="text" name="tag_list" id="tag_list" value="<%= tag_list %>" />
+    <button id="save_tags">Save Tags</button>
+  </form>
 </div>
 
 <div class="pane" id="related">
@@ -16,8 +31,12 @@ Was this page helpful? * * * * *
   Related:
   <ul id="related">
       <% for(var i=0; i< related.length; i++) { %>
-        <li><a href='<%= related[i].url %>'><%= related[i].title %></a></li>
+        <li><a href='<%= related[i].url %>' target="_parent"><%= related[i].title %></a></li>
       <% } %>
   </ul>
   
+</div>
+
+<div class="pane" id="login">
+
 </div>

@@ -18,4 +18,5 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/discovery
+//= require jquery-star-rating
 //= require_tree .

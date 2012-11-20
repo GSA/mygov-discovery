@@ -6,5 +6,5 @@ class Discovery.Routers.Router extends Backbone.Router
     window.page = new Discovery.Models.Page
     indexView = new Discovery.Views.Index({ model: page, el: $("#bar") })
         
-window.router = new Discovery.Routers.Router
-Backbone.history.start {pushState: true}
+#window.router = new Discovery.Routers.Router
+#Backbone.history.start {pushState: true}

@@ -15,23 +15,21 @@ class PagesController < ApplicationController
     page.url = params[:url]
     @page = Page.find_by_url_hash( page.build_hash )
     
-    if @page.nil? 
-      status = 404 
-    else 
-      status = 200
+    if @page.nil?
+      @page = Page.new
+      @page.url = params[:url] 
+      @page.enqueue_scrape
     end
     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @page.as_json( :related => true ), :status => status, :callback => params[:callback] }
+      format.json { render :json => @page.as_json( :related => true ), :callback => params[:callback] }
     end
   end
   
   # GET /pages/1
   # GET /pages/1.json
-  def show
-    require 'digest/md5'
-    
+  def show    
     @page = Page.find(params[:id])
     
     respond_to do |format|
@@ -64,7 +62,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       if @page.save
         format.html { redirect_to @page, notice: 'Page was successfully created.' }
-        format.json { render json: @page, status: :created, location: @page }
+        format.json { render json: @page.as_json( :related => true ), status: :created, location: @page }
       else
         format.html { render action: "new" }
         format.json { render json: @page.errors, status: :unprocessable_entity }

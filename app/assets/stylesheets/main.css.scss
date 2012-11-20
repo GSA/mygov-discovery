@@ -1,0 +1,9 @@
+
+* {}
+body { font-size: 12px; background: transparent; }
+label { font-size: 12px; }
+#logo { z-index: 1000; position: absolute; }
+.container { margin-left: 10px; }
+#bar { display: block; background: #eee; position: absolute; left: 50px; bottom: 50px; z-index: 100; height: 60px; overflow: hidden; padding-left: 40px;}
+.pane { float: left; padding: 5px 10px 5px 10px; }
+#notifications { border: 1px solid #ccc; background: #ddd; font-weight: bold; }

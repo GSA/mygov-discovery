@@ -17,7 +17,10 @@ gem "rails-backbone"
 gem 'jquery-rails'
 gem 'postrank-uri'
 gem 'addressable'
-gem 'acts_as_rateable'
+gem "jquery-star-rating-rails"
+gem 'metainspector'
+gem "pismo"
+gem 'resque'
 
 # Gems used only for assets and not required
 # in production environments by default.

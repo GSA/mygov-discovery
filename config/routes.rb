@@ -1,4 +1,7 @@
 Discovery::Application.routes.draw do
+  
+  require 'resque/server' 
+  mount Resque::Server.new, :at => "/resque"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -59,7 +62,7 @@ Discovery::Application.routes.draw do
   
   root :to => 'home#mygov_bar'
   get '/pages/lookup', :to => 'pages#lookup', :as => "pages_lookup"
-  resources :pages
+  resources :pages, :member => {:rate => :post}
 
 
 end

@@ -1,6 +1,6 @@
 class Page < ActiveRecord::Base
   require 'digest/md5'
-  
+
   attr_protected :domain_id, :path, :url_hash, :tags
   attr_accessible :url, :tag_list, :title
   attr_accessor :parts, :domain, :related
@@ -13,8 +13,6 @@ class Page < ActiveRecord::Base
   validates_presence_of :path, :domain_id, :url_hash
   validates_uniqueness_of :path, :scope => :domain_id
   validates_uniqueness_of :url_hash
-
-  #acts_as_rateable
 
   def url=(url)
     @url = PostRank::URI.clean( url )
@@ -54,7 +52,6 @@ class Page < ActiveRecord::Base
   end
   
   def as_json(options={ :related => false })
-    puts options[:related].inspect
     json = { :id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :tags => self.tags, :tag_list => self.tag_list.to_s, :title => title }
     json = json.merge({ :related => find_related_tags }) unless !options[:related]
     json
@@ -62,6 +59,25 @@ class Page < ActiveRecord::Base
   
   def build_hash(url=self.url)
      self.url_hash = Digest::MD5.hexdigest( url )
+  end
+  
+  def enqueue_scrape
+  
+    if self.id.nil?
+      self.save
+    end
+    
+    Resque.enqueue( Scrape, self.id )
+    
+  end
+  
+  def scrape
+    
+    doc = Pismo::Document.new( self.url )
+    self.title = doc.title
+    self.tag_list = Hash[doc.keywords].keys
+    self.save
+
   end
   
 end

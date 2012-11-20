@@ -6,7 +6,10 @@ class Discovery.Views.Index extends Backbone.View
     "click #save_tags": "save"
   
   render: ->
-    $(@el).html( @template( @model.toJSON() ))    
+    $(@el).html( @template( @model.toJSON() ))  
+    $('.star').rating { callback: ->
+      
+    }  
     @
   
   initialize: ->
@@ -14,7 +17,8 @@ class Discovery.Views.Index extends Backbone.View
     @.model.bind 'change', @render
     
   save: ->
-    @model.save { tag_list: $("#tags").val() } 
+    @model.save { tag_list: $("#tag_list").val() } 
+    false
   
   fetch: ->
     @model.fetch()
