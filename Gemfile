@@ -7,11 +7,7 @@ gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 
-gem 'formtastic'
-gem 'formtastic-bootstrap'
 gem "therubyracer"
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
 gem 'acts-as-taggable-on'
 gem "rails-backbone"
 gem 'jquery-rails'

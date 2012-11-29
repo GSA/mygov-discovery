@@ -10,7 +10,6 @@
  *
  *= require_self
  *= require_tree .
- *= require formtastic-bootstrap
  *= require jquery-star-rating
  *= require main
  */
