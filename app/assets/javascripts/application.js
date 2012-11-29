@@ -19,4 +19,5 @@
 //= require backbone_datalink
 //= require backbone/discovery
 //= require jquery-star-rating
+//= require xd
 //= require_tree .
