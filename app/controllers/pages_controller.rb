@@ -1,13 +1,11 @@
 class PagesController < ApplicationController
+
+  #before_filter :authenticate_user!
+  
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @pages, :callback => params[:callback] }
-    end
+    render json: Page.all, :callback => params[:callback]
   end
 
   def lookup
@@ -21,32 +19,20 @@ class PagesController < ApplicationController
       @page.enqueue_scrape
     end
     
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @page.as_json( :related => true ), :callback => params[:callback] }
-    end
+    render :json => @page.as_json( :related => true ), :callback => params[:callback] #}
+ 
   end
   
   # GET /pages/1
   # GET /pages/1.json
-  def show    
-    @page = Page.find(params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @page.as_json( :related => true ), :callback => params[:callback] }
-    end
+  def show       
+    render json: Page.find(params[:id]).as_json( :related => true ), :callback => params[:callback]
   end
 
   # GET /pages/new
   # GET /pages/new.json
   def new
-    @page = Page.new
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @page }
-    end
+    render json: Page.new
   end
 
   # GET /pages/1/edit
@@ -59,15 +45,12 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(params[:page])
 
-    respond_to do |format|
-      if @page.save
-        format.html { redirect_to @page, notice: 'Page was successfully created.' }
-        format.json { render json: @page.as_json( :related => true ), status: :created, location: @page }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @page.errors, status: :unprocessable_entity }
-      end
+    if @page.save
+      render json: @page.as_json( :related => true ), status: :created, location: @page
+    else
+      render json: @page.errors, status: :unprocessable_entity
     end
+    
   end
 
   # PUT /pages/1
@@ -75,15 +58,12 @@ class PagesController < ApplicationController
   def update
     @page = Page.find(params[:id])
 
-    respond_to do |format|
-      if @page.update_attributes(params[:page])
-        format.html { redirect_to @page, notice: 'Page was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @page.errors, status: :unprocessable_entity, :callback => params[:callback] }
-      end
+    if @page.update_attributes(params[:page])
+      head :no_content
+    else
+      render json: @page.errors, status: :unprocessable_entity, :callback => params[:callback]
     end
+    
   end
 
   # DELETE /pages/1
@@ -92,9 +72,7 @@ class PagesController < ApplicationController
     @page = Page.find(params[:id])
     @page.destroy
 
-    respond_to do |format|
-      format.html { redirect_to pages_url }
-      format.json { head :no_content, :callback => params[:callback] }
-    end
+    head :no_content
   end
+  
 end

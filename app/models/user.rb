@@ -1,3 +1,7 @@
 class User < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  devise :omniauthable, :token_authenticatable
+
+  has_many :ratings
+  
 end

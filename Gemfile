@@ -21,6 +21,10 @@ gem "jquery-star-rating-rails"
 gem 'metainspector'
 gem "pismo"
 gem 'resque'
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-mygov', :git => 'git://github.com/GSA-OCSIT/omniauth-mygov.git'
+gem 'rails-api'
 
 # Gems used only for assets and not required
 # in production environments by default.

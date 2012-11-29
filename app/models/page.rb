@@ -2,10 +2,11 @@ class Page < ActiveRecord::Base
   require 'digest/md5'
 
   attr_protected :domain_id, :path, :url_hash, :tags
-  attr_accessible :url, :tag_list, :title
+  attr_accessible :url, :tag_list, :title, :rating
   attr_accessor :parts, :domain, :related
    
   belongs_to :domain
+  has_many :ratings
   acts_as_taggable
 
   before_validation :parse_path, :build_hash, :assign_domain

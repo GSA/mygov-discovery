@@ -1,0 +1,5 @@
+Devise.setup do |config|
+  require "omniauth-oauth2"
+  require "omniauth-mygov"
+  config.omniauth :mygov, "APP_ID", "APP_SECRET"
+end

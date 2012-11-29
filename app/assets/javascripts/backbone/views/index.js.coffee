@@ -6,7 +6,8 @@ class Discovery.Views.Index extends Backbone.View
     "click #save_tags": "save"
   
   render: ->
-    $(@el).html( @template( @model.toJSON() ))  
+    $(@el).html( @template( @model.toJSON() ))
+    @initTags()  
     $('.star').rating { callback: ->
       
     }  
@@ -22,3 +23,9 @@ class Discovery.Views.Index extends Backbone.View
   
   fetch: ->
     @model.fetch()
+    
+  initTags: ->
+    $('#tag_list').textext
+      plugins: [ 'ajax', 'autocomplete', 'focus', 'prompt', 'suggestions', 'tags' ]
+      tags:
+        items: ['foo', 'bar']

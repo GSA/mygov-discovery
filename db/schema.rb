@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120163311) do
+ActiveRecord::Schema.define(:version => 20121122002223) do
 
   create_table "domains", :force => true do |t|
     t.string "hostname_reversed"
@@ -25,9 +25,16 @@ ActiveRecord::Schema.define(:version => 20121120163311) do
     t.string  "path"
     t.integer "domain_id"
     t.string  "title"
+    t.decimal "rating"
   end
 
   add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
+
+  create_table "ratings", :force => true do |t|
+    t.integer "page_id"
+    t.integer "user_id"
+    t.decimal "value"
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -47,8 +54,21 @@ ActiveRecord::Schema.define(:version => 20121120163311) do
   end
 
   create_table "users", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
