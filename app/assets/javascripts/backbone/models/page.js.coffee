@@ -1,6 +1,6 @@
 class Discovery.Models.Page extends Backbone.Model
   paramRoot: 'page'
-  urlRoot: "http://local.dev:3000/pages"
+  urlRoot: "http://localhost:3000/pages"
   
   url: ->
     url = @urlRoot
