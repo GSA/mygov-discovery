@@ -16,7 +16,7 @@ class MyGovBar
       console.log msg
       
     send: (msg) ->
-      parent_url = decodeURIComponent document.location.host.replace(/^#/, '')
+      parent_url = decodeURIComponent document.location.href.replace(/^#/, '')
       XD.postMessage msg, parent_url, parent 
 
 window.MyGovBar = new MyGovBar()
