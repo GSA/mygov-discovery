@@ -1,8 +1,8 @@
 #!/bin/bash -l
-echo "Starting Resque workers at "`date` 
-cd ../
+echo "Starting Resque workers at "`date`
+cd $RELEASE_PATH
 for i in {1..2}
 do
-  RAILS_ENV=production QUEUE=scraper_queue nohup bundle exec rake environment resque:work > log/resque.$i.log 2>&1 &
+  RAILS_ENV=production QUEUE=scraper_queue nohup bundle exec rake environment resque:work > $RELEASE_PATH/log/resque.$i.log 2>&1 &
 done
 bundle exec resque-web
