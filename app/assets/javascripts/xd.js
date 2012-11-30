@@ -57,6 +57,7 @@ var XD = function(){
                     attached_callback = function(e) {
                         if ((typeof source_origin === 'string' && e.origin !== source_origin)
                         || (Object.prototype.toString.call(source_origin) === "[object Function]" && source_origin(e.origin) === !1)) {
+                            console.log('cross iframe request blocked. Domains ' + e.origin + ' and ' + source_origin + ' must_match.' );
                             return !1;
                         }
                         callback(e);
