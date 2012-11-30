@@ -68,6 +68,7 @@ GEM
       rash (= 0.3.2)
     mime-types (1.19)
     multi_json (1.3.7)
+    mysql2 (0.3.11)
     nokogiri (1.5.5)
     pismo (0.7.2)
       awesome_print
@@ -181,6 +182,7 @@ DEPENDENCIES
   jquery-rails
   jquery-star-rating-rails
   metainspector
+  mysql2
   pismo
   postrank-uri
   rails (= 3.2.8)
