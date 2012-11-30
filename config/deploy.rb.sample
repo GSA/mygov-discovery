@@ -39,6 +39,6 @@ namespace :deploy do
 end
 
 task :restart_resque_workers, :roles => :web do
-  run "#{deploy_to}/script/stop_resque_workers"
-  run "#{deploy_to}/script/start_resque_workers"
+  run "#{release_path}/script/stop_resque_workers"
+  run "#{release_path}/script/start_resque_workers"
 end
