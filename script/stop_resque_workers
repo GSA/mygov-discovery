@@ -1,0 +1,7 @@
+#!/bin/bash -l
+RESQUEPIDS=`pgrep -f "scraper_queue"`
+if [ -n "$RESQUEPIDS" ]
+  then 
+    echo "Stopping Resque workers at "`date` 
+    echo $RESQUEPIDS | xargs kill -9
+fi

@@ -20,6 +20,7 @@ before 'deploy:assets:precompile', 'deploy:symlink_db'
 before "deploy:symlink", "deploy:web:disable"
 after "deploy:restart", "deploy:web:enable"
 after "deploy:restart", "deploy:cleanup"
+before "deploy:cleanup", "restart_resque_workers"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -35,4 +36,9 @@ namespace :deploy do
   task :symlink_db, :roles => :app do
     run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
   end
+end
+
+task :restart_resque_workers, :roles => :web do
+  run "#{deploy_to}/script/stop_resque_workers"
+  run "#{deploy_to}/script/start_resque_workers"
 end
