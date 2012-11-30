@@ -5,4 +5,4 @@ for i in {1..2}
 do
   RAILS_ENV=production QUEUE=scraper_queue nohup bundle exec rake environment resque:work > log/resque.$i.log 2>&1 &
 done
-bin/resque-web
+bundle exec resque-web
