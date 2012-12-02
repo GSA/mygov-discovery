@@ -2,7 +2,7 @@ class MyGovBar
     el: $ "#bar"
     
     constructor: ->
-      @parent_url = decodeURIComponent( document.location.hash.replace(/^#/, '') ).replace( /\/$/, '')
+      @parent_url = decodeURIComponent( document.location.hash.replace(/^#/, '') ).match(/([^:]+:\/\/.[^/]+)/)[1]
       XD.receiveMessage @recieve, @parent_url
       
       window.page = new Discovery.Models.Page
@@ -13,7 +13,7 @@ class MyGovBar
         when "shown", "hidden" then @toggleVisibility()
       
     send: (msg) =>
-      XD.postMessage msg, @parent_url 
+      XD.postMessage msg, @parent_url
 
     toggleVisibility: ->
       @el.toggleClass 'hidden'
