@@ -16,7 +16,7 @@ body, ul, ol, li, iframe {
   margin: 0; 
   padding: 0; 
   line-height: 1em;
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -41,7 +41,7 @@ a {text-decoration: none; padding: 0; margin: 0;}
   display: block;
   position: fixed;
   bottom: 0;
-  background: #fff; background: rgba(255,255,255,.88);
+  background: #fff; background: rgba(255,255,255,.95);
   right: 0;
   width: 100%;
   -webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.5);
@@ -56,19 +56,23 @@ a {text-decoration: none; padding: 0; margin: 0;}
 
 .navigation-bar li.active {background: #1A6485;}
 .navigation-bar li a {color: #333; line-height: 3em; padding: 0;}
-.navigation-bar li a:hover {background: #eee;}
+.navigation-bar li a:hover {background: #ccc;}
 .navigation-bar li:hover {background: #eee; cursor: pointer;}
 .navigation-bar li.right {float: right; display: inline-block; }
-.navigation-bar li:last-child {border-right: 1px solid #eee;}
-.navigation-bar li.left {}
-.navigation-bar li:hover, .navigation-bar li:active {background: #eee;}
+.navigation-bar li:last-child {}
+.navigation-bar li.left {float: left; height: 4em; display: inline-block; border-left: 1px solid #ddd;}
+.navigation-bar li.left.plus-button {border-left: none;}
+.navigation-bar li:hover, .navigation-bar li:active {background: #ccc;}
 
-.navigation-bar li {width: 18%; display: inline-block; }
+.navigation-bar li.left a {padding-top: 1em;}
+
+.navigation-bar li {display: inline-block; height: 4em;  }
 
 
 .navigation-bar li.mygov a,
 .navigation-bar li.notifications a span.notification-label,
 .navigation-bar li.profile a,
+.navigation-bar li.search a,
  .navigation-bar li.sign-out a
  {
   display: block;
@@ -93,23 +97,80 @@ span.jujitsu {
   color: #fff;
   margin-left: 2em;
   text-align: center;
-  margin-top: .15em;
+  margin-top: -.85em;
   font-size: .9em;
   font-weight: bold;
   -webkit-box-shadow: 0 0 3px rgba(0,0,0,.7);
 }
 
-.navigation-bar li.mygov a {background:  image-url("sprite.png") 68% 6px no-repeat;  border-right: 1px solid #eee;}
-.navigation-bar li.notifications a {background: image-url("sprite.png") 55% -109px no-repeat; border-left:none;}
-.navigation-bar li.notifications a{display: inline-block; height: 4em; }
+.navigation-bar li.mygov a {background:  image-url("sprite.png") 68% 6px no-repeat;  }
+.navigation-bar li.notifications a {background: image-url("sprite.png") 55% -109px no-repeat; border-left:none; display: inline-block; height: 4em;}
+.navigation-bar li.search a{background:  image-url("sprite.png") 65% -713px no-repeat;  padding:0 1em; display: inline-block;}
 .navigation-bar li.profile a {background:  image-url("sprite.png") 65% -229px no-repeat; border-left: 1px solid #eee;}
-.navigation-bar li.sign-out a {background: image-url("sprite.png") 65% -350px no-repeat;}
+.navigation-bar li.sign-out a {background: image-url("sprite.png") 65% -350px no-repeat; background: none;}
 
+
+.navigation-bar li.related, .navigation-bar li.tags {
+  overflow: hidden;
+  height: 4em;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.navigation-bar li.related:hover, .navigation-bar li.tags:hover {background: none;}
+.navigation-bar li.related ul, .navigation-bar li.tags ul {margin: 0; padding: 0; }
+.navigation-bar li.related ul.content-list li, .navigation-bar li.tags ul.content-list li {
+  margin: 0; 
+  padding: .25em 0; 
+  display: block; 
+  height: auto; 
+  line-height: 1em; 
+  
+}
+  
+.navigation-bar li.related a, .navigation-bar li.tags a {
+  margin: 0; 
+  padding: 0; 
+  height: auto; 
+  line-height: 1em; 
+  color: #444; 
+  text-shadow: 0 1px 0 rgba(255,255,255,.9); 
+}
+
+.navigation-bar li.related li:hover, .navigation-bar li.tags li:hover {background: none;}
+.navigation-bar li.related a:hover, .navigation-bar li.tags a:hover {background: none;  color: #132138;}
+
+.navigation-bar h2 {font-size: 1.1em; margin: 0; padding: .4em 0 .5em 0; display: block; color: #555; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
+
+/*** Tags ***/
+
+.tags ul.content-list li {float: left;}
+.tags ul.content-list li a {
+  margin: .3em 1em 0 0; 
+  padding: 0 0 0 1.5em; 
+  color: #132138;
+  background:  image-url("sprite.png") 0 -840px no-repeat;
+}
+
+.tags ul.content-list li a:hover {background:  image-url("sprite.png") 0 -840px no-repeat; border-bottom: none; color: #851A17;}
+
+
+/*** Plus buttons ***/
+
+.navigation-bar li.plus-button {padding-left: 0; float: left; height: 4em; background: #fff; background: rgba(255,255,255,.7);}
+
+.navigation-bar li a.bar-button {font-size: 2.3em; height: 4em; padding-left: 0; padding: 0 .75em; margin: 0; line-height: 1.5em; font-weight: normal;}
+
+.navigation-bar li a.bar-button:hover,
+.navigation-bar li a.bar-button:active {background: none; color: #851A17; background: #fff; text-shadow: 0 0 5px rgba(42,101,136,.5);}
+
+a.bar-button span {display: none;}
 
 @media (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
 
-.navigation-bar li.mygov a {background-image:  image-url("sprite-2x.png");  background-size: 40px; border-right: 1px solid #eee; }
+.navigation-bar li.mygov a {background-image:  image-url("sprite-2x.png");  background-size: 40px; }
 .navigation-bar li.notifications a {background-image: url("sprite-2x.png"); background-size: 40px; border-left:none;}
+.navigation-bar li.search a {background-image:  image-url("sprite-2x.png"); background-size: 40px; border-left: 1px solid #eee; }
 .navigation-bar li.profile a {background-image:  image-url("sprite-2x.png"); background-size: 40px; border-left: 1px solid #eee; }
 .navigation-bar li.sign-out a {background-image: image-url("sprite-2x.png"); background-size: 40px;}
 
@@ -124,9 +185,16 @@ span.jujitsu {
   .navigation-bar li a {padding: 0 1em 0 2em; }
   .navigation-bar li.mygov a,
   .navigation-bar li.profile a,
+  .navigation-bar li.search a,
   .navigation-bar li.sign-out a {width: auto; display: inline-block; text-indent: 0; }
   
-  .navigation-bar li {padding-left: 1em; width: auto;}
+  .navigation-bar li.search a {text-indent: -9999em;}
+  
+  .navigation-bar li { width: auto; padding-left: 1em;}
+  
+  .navigation-bar li.search {padding: 0;}
+  .navigation-bar li.search a {padding: 0 0 0 3em; display: block; width: .75em;}
+  
   .navigation-bar li.mygov a {background: url("sprite.png") 0% 6px no-repeat;}
   .navigation-bar li.notifications a {background: url("sprite.png") 0% -109px no-repeat; text-align: left; }
   
@@ -143,7 +211,7 @@ span.jujitsu {
        (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), 
        (min-width: 768px) and (min-device-pixel-ratio: 2) {
 
-.navigation-bar li.mygov a {background-image:  url("sprite-2x.png");  border-right: 1px solid #eee; background-size: 40px;}
+.navigation-bar li.mygov a {background-image:  url("sprite-2x.png");   background-size: 40px;}
 .navigation-bar li.notifications a {background-image: url("sprite-2x.png"); border-left:none; background-size: 40px;}
 .navigation-bar li.profile a {background-image:  url("sprite-2x.png"); border-left: 1px solid #eee; background-size: 40px;}
 .navigation-bar li.sign-out a {background-image: url("sprite-2x.png"); background-size: 40px;}
