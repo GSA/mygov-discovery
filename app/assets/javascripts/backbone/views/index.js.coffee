@@ -4,6 +4,7 @@ class Discovery.Views.Index extends Backbone.View
   
   events: 
     "click #save_tags": "save"
+    "click #toggle": "toggle"
   
   render: ->
     $(@el).html( @template( @model.toJSON() ))  
@@ -22,3 +23,8 @@ class Discovery.Views.Index extends Backbone.View
   
   fetch: ->
     @model.fetch()
+    
+  toggle: ->
+    $(@el).toggleClass 'expanded'
+    $(@el).toggleClass 'minimized'
+    MyGovBar.send 'toggle' 
