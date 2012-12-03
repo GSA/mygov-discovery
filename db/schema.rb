@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120163554) do
+ActiveRecord::Schema.define(:version => 20121203025947) do
+
+  create_table "domains", :force => true do |t|
+    t.string "hostname_reversed"
+    t.string "hostname_hash"
+  end
+
+  add_index "domains", ["hostname_hash"], :name => "index_domains_on_hostname_hash", :unique => true
+
+  create_table "pages", :force => true do |t|
+    t.string  "url_hash"
+    t.string  "path"
+    t.integer "domain_id"
+    t.string  "title"
+  end
+
+  add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
 
   create_table "rates", :force => true do |t|
     t.integer  "rater_id"
@@ -37,6 +53,23 @@ ActiveRecord::Schema.define(:version => 20121120163554) do
 
   add_index "ratings", ["rate_id"], :name => "index_ratings_on_rate_id"
   add_index "ratings", ["rateable_id", "rateable_type"], :name => "index_ratings_on_rateable_id_and_rateable_type"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "users", :force => true do |t|
     t.datetime "created_at", :null => false
