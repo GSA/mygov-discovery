@@ -5,5 +5,4 @@ class Scrape
     page = Page.find(page_id)
     page.scrape
   end
-  
 end

@@ -7,11 +7,7 @@ class Domain < ActiveRecord::Base
   validates_uniqueness_of :hostname_reversed
   validates_presence_of :hostname_reversed, :hostname_hash
   
-  before_validation :build_hash
-  
-  def build_hash( hostname = self.hostname )
-    self.hostname_hash = Digest::MD5.hexdigest( hostname ) unless hostname.nil?
-  end
+  before_validation :generate_hash
   
   def hostname=(hostname)
     self.hostname_reversed = hostname.split('.').reverse.join('.')
@@ -25,4 +21,9 @@ class Domain < ActiveRecord::Base
     { :hostname => hostname, :hostname_hash => hostname_hash, :id => id }
   end
   
+  private
+  
+  def generate_hash
+    self.hostname_hash = Digest::MD5.hexdigest(self.hostname) unless self.hostname.nil?
+  end
 end

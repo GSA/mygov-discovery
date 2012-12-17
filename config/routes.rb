@@ -1,7 +1,12 @@
 Discovery::Application.routes.draw do
   
+  get '/pages/lookup', :to => 'pages#lookup', :as => "pages_lookup"
+  resources :pages, :member => {:rate => :post}
+  
   require 'resque/server' 
   mount Resque::Server.new, :at => "/resque"
+
+  root :to => 'home#mygov_bar'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -59,10 +64,4 @@ Discovery::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-  
-  root :to => 'home#mygov_bar'
-  get '/pages/lookup', :to => 'pages#lookup', :as => "pages_lookup"
-  resources :pages, :member => {:rate => :post}
-
-
 end

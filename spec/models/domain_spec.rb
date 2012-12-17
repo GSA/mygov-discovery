@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'digest/md5'
 
 describe Domain do
 
@@ -17,5 +16,4 @@ describe Domain do
     domain = Domain.create({:hostname => 'usa.gov'})
     domain.hostname_hash.should eq( Digest::MD5.hexdigest( 'usa.gov' ) )
   end
-  
 end
