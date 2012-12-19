@@ -10,6 +10,7 @@ class PagesController < ApplicationController
   def lookup
     @page = Page.find_or_initialize_by_url_hash(Page.hash_url(params[:url]))
     unless @page.persisted?
+      @page.url = params[:url]
       @page.save
       @page.enqueue_scrape
     end
