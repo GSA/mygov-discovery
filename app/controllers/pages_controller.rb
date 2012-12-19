@@ -68,4 +68,17 @@ class PagesController < ApplicationController
       format.json { head :no_content, :callback => params[:callback] }
     end
   end
+  
+  def no_js
+    url = request.referer || params[:url]
+    if url
+      @page = Page.find_or_initialize_by_url_hash(Page.hash_url(url))
+      unless @page.persisted?
+        @page.url = url
+        @page.save
+        @page.enqueue_scrape
+      end
+    end
+  end
+  
 end
