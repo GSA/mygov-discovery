@@ -14,7 +14,6 @@ class PagesController < ApplicationController
       @page.save
       @page.enqueue_scrape
     end
-    puts @page.inspect
     respond_to do |format|
       format.json { render :json => @page.as_json(:related => true), :callback => params[:callback] }
     end
