@@ -125,7 +125,7 @@ Tags
 
 Pages can also be retrieved by tags.
 
-### Retrieve a page by tag name
+### Retrieve pages by tag name
 
 `GET /tags/foo.json`
 
@@ -157,3 +157,8 @@ Response:
    }
 ]
 ```
+
+Format
+------
+
+All responses returned as JSON, with JSONP Support. Simply pass `?callback=foo` where `foo` is your desired callback.
