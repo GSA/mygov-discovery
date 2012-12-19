@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
+  after_filter :say_hi
   
   # For all responses in this controller, return the CORS access control headers.
   
@@ -27,6 +28,10 @@ class ApplicationController < ActionController::Base
   
   def cors
     render :nothing => true
+  end
+  
+  def say_hi
+    headers['X-Easter-Egg'] = ':)'
   end
   
 end
