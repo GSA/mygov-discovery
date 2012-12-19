@@ -71,6 +71,9 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    markdown-rails (0.2.1)
+      rails
+      rdiscount (>= 1.6.8, < 2.0)
     metainspector (1.10.2)
       nokogiri (~> 1.5)
       rash (= 0.3.2)
@@ -131,8 +134,10 @@ GEM
     rake (10.0.1)
     rash (0.3.2)
       hashie (~> 1.2.0)
+    rdiscount (1.6.8)
     rdoc (3.12)
       json (~> 1.4)
+    redcarpet (2.2.2)
     redis (3.0.2)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
@@ -198,12 +203,14 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   jquery-star-rating-rails
+  markdown-rails
   metainspector
   mysql2
   pismo
   postrank-uri
   rails (= 3.2.8)
   rails-backbone
+  redcarpet
   resque
   rspec-rails
   sass-rails (~> 3.2.3)
