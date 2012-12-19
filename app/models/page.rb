@@ -16,9 +16,14 @@ class Page < ActiveRecord::Base
 
   class << self
     
+    #todo: this should use the same function as the model uses to prevent inconsistancy
     def hash_url(url)
-      Digest::MD5.hexdigest(url)
+      url = PostRank::URI.clean url 
+      parts = Addressable::URI.parse url 
+      url = "http://#{parts.host}#{parts.path}"
+      Digest::MD5.hexdigest url
     end
+    
   end
   
   def url=(url)
