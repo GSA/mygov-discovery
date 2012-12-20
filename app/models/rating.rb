@@ -4,7 +4,7 @@ class Rating < ActiveRecord::Base
   has_one :user
   
   attr_accessible :page_id, :value
-  validates_uniqueness_of :value, :scope => [ :page_id, :user_id ]
+  validates_uniqueness_of :page_id, :scope => :user_id
   validates_presence_of :user_id, :page_id, :value
   validates :value, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 5 }
   

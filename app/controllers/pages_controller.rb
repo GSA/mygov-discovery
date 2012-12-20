@@ -50,6 +50,13 @@ class PagesController < ApplicationController
 
   def update
     @page = Page.find(params[:id])
+    if params[:rating]
+      rating = Rating.new
+      rating.user_id = @current_user
+      rating.page_id = @page.id
+      rating.value = params[:rating]
+      rating.save
+    end
     respond_to do |format|
       if @page.update_attributes(params[:page])
         format.json { head :no_content }
