@@ -6,14 +6,10 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'jquery-rails'
 gem "therubyracer"
 gem 'acts-as-taggable-on'
-gem "rails-backbone"
-gem 'jquery-rails'
 gem 'postrank-uri'
 gem 'addressable'
-gem "jquery-star-rating-rails"
 gem 'metainspector'
 gem "pismo"
 gem 'resque'

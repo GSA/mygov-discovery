@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203025947) do
+ActiveRecord::Schema.define(:version => 20121220162618) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "page_id"
+    t.string   "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "comments", ["page_id"], :name => "index_comments_on_page_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "domains", :force => true do |t|
     t.string "hostname_reversed"
@@ -25,34 +36,18 @@ ActiveRecord::Schema.define(:version => 20121203025947) do
     t.string  "path"
     t.integer "domain_id"
     t.string  "title"
+    t.decimal "avg_rating"
   end
 
-  add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
-
-  create_table "rates", :force => true do |t|
-    t.integer  "rater_id"
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
-    t.integer  "stars",         :null => false
-    t.string   "dimension"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "rates", ["rateable_id", "rateable_type"], :name => "index_rates_on_rateable_id_and_rateable_type"
-  add_index "rates", ["rater_id"], :name => "index_rates_on_rater_id"
+  add_index "pages", ["avg_rating"], :name => "index_pages_on_rating"
 
   create_table "ratings", :force => true do |t|
+    t.integer  "page_id"
     t.integer  "user_id"
-    t.integer  "rate_id"
-    t.integer  "rateable_id"
-    t.string   "rateable_type", :limit => 32
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.integer  "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
-
-  add_index "ratings", ["rate_id"], :name => "index_ratings_on_rate_id"
-  add_index "ratings", ["rateable_id", "rateable_type"], :name => "index_ratings_on_rateable_id_and_rateable_type"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -72,8 +67,8 @@ ActiveRecord::Schema.define(:version => 20121203025947) do
   end
 
   create_table "users", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string  "ip"
+    t.boolean "blocked"
   end
 
 end

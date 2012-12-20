@@ -3,9 +3,10 @@ class Page < ActiveRecord::Base
 
   attr_protected :domain_id, :path, :url_hash, :tags
   attr_accessible :url, :tag_list, :title
-  attr_accessor :parts, :domain, :related
+  attr_accessor :parts, :domain, :related, :rating, :avg_rating
    
   belongs_to :domain
+  has_many :ratings
   acts_as_taggable
 
   before_validation :parse_path, :generate_hash, :assign_domain
@@ -56,7 +57,7 @@ class Page < ActiveRecord::Base
   end
 
   def as_json(options={ :related => false })
-    json = {:id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :tags => self.tags, :tag_list => self.tag_list.to_s, :title => title}
+    json = {:id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :tags => self.tags, :tag_list => self.tag_list.to_s, :title => title, :avg_rating => avg_rating }
     json = json.merge({:related => find_related_tags}) unless !options[:related]
     json
   end
@@ -73,6 +74,26 @@ class Page < ActiveRecord::Base
     self.save
   end  
   
+  def rating=(value)
+    
+    rating = Rating.new
+    rating.value = value
+    rating.page_id = id
+    rating.user_id = @current_user
+    rating.save
+  
+  end
+  
+  def rating
+    rating = Rating.where("page_id = ? AND user_id = ?", id, @current_user).limit(1)
+    rating.first.value
+  end
+  
+  def avg_rating
+    avg_rating = Rating.average( :value, :conditions => [ 'page_id = ?', id ] ) if avg_rating.nil?
+    avg_rating 
+  end
+    
   private
   
   def assign_domain
@@ -86,4 +107,5 @@ class Page < ActiveRecord::Base
   def generate_hash
     self.url_hash = Page.hash_url(url)
   end
+  
 end
