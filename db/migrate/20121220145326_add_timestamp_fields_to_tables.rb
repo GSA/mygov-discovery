@@ -9,7 +9,6 @@ class AddTimestampFieldsToTables < ActiveRecord::Migration
     add_column :tags, :updated_at, :datetime
     Domain.all.each{|domain| domain.update_attributes(:created_at => Time.now, :updated_at => Time.now)}
     Page.all.each{|page| page.update_attributes(:created_at => Time.now, :updated_at => Time.now)}
-    Tag.all.each{|tag| tag.update_attributes(:created_at => Time.now, :updated_at => Time.now)}
     drop_table :users
   end
   
