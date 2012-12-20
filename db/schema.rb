@@ -11,20 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203025947) do
+ActiveRecord::Schema.define(:version => 20121220145326) do
 
   create_table "domains", :force => true do |t|
-    t.string "hostname_reversed"
-    t.string "hostname_hash"
+    t.string   "hostname_reversed"
+    t.string   "hostname_hash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "domains", ["hostname_hash"], :name => "index_domains_on_hostname_hash", :unique => true
 
   create_table "pages", :force => true do |t|
-    t.string  "url_hash"
-    t.string  "path"
-    t.integer "domain_id"
-    t.string  "title"
+    t.string   "url_hash"
+    t.string   "path"
+    t.integer  "domain_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
@@ -62,18 +66,16 @@ ActiveRecord::Schema.define(:version => 20121203025947) do
     t.string   "tagger_type"
     t.string   "context",       :limit => 128
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
   add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
-    t.string "name"
-  end
-
-  create_table "users", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
