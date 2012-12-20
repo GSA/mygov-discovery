@@ -16,6 +16,8 @@ gem 'resque'
 gem 'capistrano'
 gem 'markdown-rails'
 gem 'redcarpet'
+gem 'jquery-rails'
+gem "jquery-star-rating-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.
