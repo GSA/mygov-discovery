@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220162618) do
+ActiveRecord::Schema.define(:version => 20121220164820) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -34,11 +34,13 @@ ActiveRecord::Schema.define(:version => 20121220162618) do
   add_index "domains", ["hostname_hash"], :name => "index_domains_on_hostname_hash", :unique => true
 
   create_table "pages", :force => true do |t|
-    t.string  "url_hash"
-    t.string  "path"
-    t.integer "domain_id"
-    t.string  "title"
-    t.decimal "avg_rating"
+    t.string   "url_hash"
+    t.string   "path"
+    t.integer  "domain_id"
+    t.string   "title"
+    t.decimal  "avg_rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "pages", ["avg_rating"], :name => "index_pages_on_rating"
@@ -66,12 +68,16 @@ ActiveRecord::Schema.define(:version => 20121220162618) do
   add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
-    t.string  "ip"
-    t.boolean "blocked"
+    t.string   "ip"
+    t.boolean  "blocked"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
