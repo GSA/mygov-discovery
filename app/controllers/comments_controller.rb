@@ -4,7 +4,8 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new
     @comment.page_id = params[:page_id]
-    @comment.body = params[:comment]
+    @comment.user_id = @current_user.id
+    @comment.body = params[:body]
     respond_to do |format|
       if @comment.save
         format.json { render json: @comment.as_json, status: :created }
