@@ -5,5 +5,4 @@ class TagsController < ApplicationController
       format.json { render json: Page.tagged_with(params[:id]), :callback => params[:callback] }
     end
   end
-
 end

@@ -24,9 +24,13 @@ ActiveRecord::Schema.define(:version => 20121220162618) do
   add_index "comments", ["page_id"], :name => "index_comments_on_page_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+ActiveRecord::Schema.define(:version => 20121220145326) do
+
   create_table "domains", :force => true do |t|
-    t.string "hostname_reversed"
-    t.string "hostname_hash"
+    t.string   "hostname_reversed"
+    t.string   "hostname_hash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "domains", ["hostname_hash"], :name => "index_domains_on_hostname_hash", :unique => true
@@ -57,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20121220162618) do
     t.string   "tagger_type"
     t.string   "context",       :limit => 128
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"

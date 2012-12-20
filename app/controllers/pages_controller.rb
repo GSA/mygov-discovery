@@ -62,7 +62,6 @@ class PagesController < ApplicationController
   def destroy
     @page = Page.find(params[:id])
     @page.destroy
-
     respond_to do |format|
       format.html { redirect_to pages_url }
       format.json { head :no_content, :callback => params[:callback] }
@@ -80,5 +79,4 @@ class PagesController < ApplicationController
       end
     end
   end
-  
 end

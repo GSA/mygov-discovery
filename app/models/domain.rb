@@ -1,6 +1,5 @@
 class Domain < ActiveRecord::Base
   require 'digest/md5'
-
   has_many :pages
   attr_accessor :hostname
   attr_accessible :hostname
