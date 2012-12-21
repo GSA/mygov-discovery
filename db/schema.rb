@@ -38,25 +38,20 @@ ActiveRecord::Schema.define(:version => 20121220164820) do
     t.string   "path"
     t.integer  "domain_id"
     t.string   "title"
+    t.decimal  "avg_rating"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "avg_rating"
   end
 
-  add_index "pages", ["avg_rating"], :name => "index_pages_on_avg_rating"
   add_index "pages", ["avg_rating"], :name => "index_pages_on_rating"
-  add_index "pages", ["url_hash"], :name => "index_pages_on_url_hash", :unique => true
 
   create_table "ratings", :force => true do |t|
     t.integer  "page_id"
     t.integer  "user_id"
     t.integer  "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
-
-  add_index "ratings", ["page_id"], :name => "index_ratings_on_page_id"
-  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -70,7 +65,7 @@ ActiveRecord::Schema.define(:version => 20121220164820) do
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_taggable_type_context"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
