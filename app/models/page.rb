@@ -12,17 +12,22 @@ class Page < ActiveRecord::Base
   validates_presence_of :path, :domain_id, :url_hash
   validates_uniqueness_of :path, :scope => :domain_id
   validates_uniqueness_of :url_hash
+  
+  after_save :enqueue_scrape, :if => :url_hash_changed?
 
   class << self
     
     #todo: this should use the same function as the model uses to prevent inconsistancy
     def hash_url(url)
-      url = PostRank::URI.clean url 
-      parts = Addressable::URI.parse url 
-      url = "http://#{parts.host}#{parts.path}"
-      Digest::MD5.hexdigest url
-    end
-    
+      if url
+        url = PostRank::URI.clean url 
+        parts = Addressable::URI.parse url 
+        url = "http://#{parts.host}#{parts.path}"
+        Digest::MD5.hexdigest url
+      else
+        nil
+      end
+    end    
   end
   
   def url=(url)
@@ -73,13 +78,11 @@ class Page < ActiveRecord::Base
   end  
   
   def rating=(value)
-    
     rating = Rating.new
     rating.value = value
     rating.page_id = id
     rating.user_id = @current_user
     rating.save
-  
   end
   
   def rating
@@ -91,7 +94,7 @@ class Page < ActiveRecord::Base
     avg_rating = Rating.average( :value, :conditions => [ 'page_id = ?', id ] ) if avg_rating.nil?
     avg_rating 
   end
-    
+  
   private
   
   def assign_domain
@@ -105,5 +108,4 @@ class Page < ActiveRecord::Base
   def generate_hash
     self.url_hash = Page.hash_url(url)
   end
-  
 end

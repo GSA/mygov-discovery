@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe Page do
   
+  describe "Page#hash_url" do
+    it "should return nil if no url is provided" do
+      Page.hash_url(nil).should be_nil
+    end
+    
+    it "should return a hash of a url if one is provided" do
+      hash = Page.hash_url("http://www.example.gov")
+      hash.should_not be_nil
+      hash.length.should == 32
+    end
+  end
+  
   it "should parse the url into parts" do
     page = Page.new
     page.url = "http://my.usa.gov"
