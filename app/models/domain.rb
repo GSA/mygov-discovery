@@ -5,7 +5,7 @@ class Domain < ActiveRecord::Base
   attr_accessible :hostname
   validates_uniqueness_of :hostname_reversed
   validates_presence_of :hostname_reversed, :hostname_hash
-  
+  validates_format_of :hostname, :with => /.*\.gov/i, :message => "Domain must be a .gov"
   before_validation :generate_hash
   
   def hostname=(hostname)
