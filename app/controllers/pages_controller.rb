@@ -1,11 +1,4 @@
 class PagesController < ApplicationController
-  
-  def index
-    @pages = Page.all
-    respond_to do |format|
-      format.json { render json: @pages, :callback => params[:callback] }
-    end
-  end
 
   def lookup
     @page = Page.find_or_initialize_by_url_hash(Page.hash_url(params[:url]))
@@ -26,36 +19,27 @@ class PagesController < ApplicationController
     end
   end
 
-  def new
-    @page = Page.new    
-    respond_to do |format|
-      format.json { render json: @page }
-    end
-  end
-
-  def edit
-    @page = Page.find(params[:id])
-  end
-
-  def create
-    @page = Page.new(params[:page])
-    respond_to do |format|
-      if @page.save
-        format.json { render json: @page.as_json( :related => true ), status: :created, location: @page }
-      else
-        format.json { render json: @page.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def update
     @page = Page.find(params[:id])
     if params[:rating]
-      rating = Rating.new
-      rating.user_id = @current_user
-      rating.page_id = @page.id
+      
+      #todo: is there a better way to do this without running into mass assignment issues on user_id?
+      rating = Rating.where(:user_id => @current_user.id, :page_id => @page.id).first
+      if rating.nil?
+        rating = Rating.new
+        rating.page_id = @page.id
+        rating.user_id = @current_user.id
+      end
+      
       rating.value = params[:rating]
-      rating.save
+      
+      if !rating.save
+        respond_to do |format|
+           format.json { render json: rating.errors, status: :unprocessable_entity, :callback => params[:callback] }        
+        end
+        return
+      end
+      
     end
     respond_to do |format|
       if @page.update_attributes(params[:page])
@@ -63,15 +47,6 @@ class PagesController < ApplicationController
       else
         format.json { render json: @page.errors, status: :unprocessable_entity, :callback => params[:callback] }
       end
-    end
-  end
-
-  def destroy
-    @page = Page.find(params[:id])
-    @page.destroy
-    respond_to do |format|
-      format.html { redirect_to pages_url }
-      format.json { head :no_content, :callback => params[:callback] }
     end
   end
   
@@ -86,4 +61,5 @@ class PagesController < ApplicationController
       end
     end
   end
+  
 end

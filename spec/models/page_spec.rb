@@ -27,4 +27,5 @@ describe Page do
     page = Page.create({:url=>"my.usa.gov"})
     page.url_hash.should eq Digest::MD5.hexdigest( 'http://my.usa.gov/' )
   end
+  
 end
