@@ -45,7 +45,7 @@ describe "Apis" do
   describe "GET /pages/lookup.json" do
     context "when a user looksup a page by URL" do
       it "should return the page object" do
-        get "/pages/lookup.json?url=#{@page.url}"
+        get "/pages?url=#{@page.url}"
         response.code.should == "200"
         data = JSON.parse response.body
         data.should_not be_nil

@@ -32,6 +32,9 @@ end
 group :development, :test do
   gem "rspec-rails"
   gem "capybara"
+  gem 'launchy'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
 group :production do
