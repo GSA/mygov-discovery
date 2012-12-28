@@ -7,10 +7,11 @@ Discovery::Application.routes.draw do
     resources :ratings, :only => [:create]
   end
   
+  resources :tags, :only => [:index, :show]
+  
   match '/pages/:id' => 'Application#cors', :via => :options
   match '/pages/:id/comments' => 'Application#cors', :via => :options
   match '/pages/:id/ratings' => 'Application#cors', :via => :options
-  match '/tags/:id' => 'tags#show'
 
   root :to => 'home#readme'
 
