@@ -160,6 +160,39 @@ Response:
 ]
 ```
 
+### Retrieve tags by query string
+
+`GET /tags?q=fo`
+
+Response:
+
+```
+[
+   {
+      "id":1,
+      "url":"http://foo.gov/",
+      "domain":{
+         "hostname":"foo.gov",
+         "hostname_hash":"d698d23550e89505e47299871d4e5f1d",
+         "id":1
+      },
+      "path":"/",
+      "tags":[
+         {
+            "id":1,
+            "name":"foo"
+         },
+         {
+            "id":2,
+            "name":"bar"
+         }
+      ],
+      "tag_list":"foo, bar",
+      "title":null
+   }
+]
+```
+
 Format
 ------
 
