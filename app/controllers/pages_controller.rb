@@ -3,8 +3,8 @@ class PagesController < ApplicationController
   before_filter :limit_related, :only => [:index, :show]
   
   def limit_related
-    params[:related] = params[:related].to_i
-    params[:related] = 2 if params[:related] < 0 or params[:related] > 25
+    params[:related] = params[:related].to_i unless params[:related].nil?
+    params[:related] = 2 if params[:related].nil? or params[:related] < 0 or params[:related] > 25
   end
   
   def index
