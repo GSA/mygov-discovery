@@ -116,6 +116,8 @@ Result:
 }
 ```
 
+*Note: the number of related pages returned can be limited by passing `?related=N` where N is a number between 0 and 25. Defaults to 2.*
+
 ### Update a page
 
 `POST /pages/9.json`
