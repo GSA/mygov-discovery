@@ -9,13 +9,14 @@ class Crawl
   @queue = :crawler_queue
   
   def self.perform(url)
-    links = crawl url
+    links = self.crawl url
     for link in links do
-       Page.create :url => url
+       puts "Adding page " + link
+       Page.create :url => link
     end
   end
   
-  def crawl(url)
+  def self.crawl(url)
     parts = Addressable::URI.parse url
     url = parts.scheme + "://" + parts.host
     url = PostRank::URI.clean url
@@ -27,16 +28,15 @@ class Crawl
   
 end
 
-def get_domains
+task :seed do
   
   domains = []
   json =  JSON.parse open($data_url).read
   
   for row in json["data"] do
     url = PostRank::URI.clean row[8][0]
+    puts "Adding domain " + url
     Resque.enqueue(Crawl, url)
   end
   
 end
-
-get_domains()
