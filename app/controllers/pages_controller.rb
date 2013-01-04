@@ -1,25 +1,19 @@
 class PagesController < ApplicationController
-
   before_filter :limit_related, :only => [:index, :show]
-  
-  def limit_related
-    params[:related] = params[:related].to_i unless params[:related].nil?
-    params[:related] = 2 if params[:related].nil? or params[:related] < 0 or params[:related] > 25
-  end
   
   def index
     unless params[:url]
       render :json => {:status => "Error", :message => "url parameter required"}, :status => 400, :callback => params[:callback]
     else
       @page = Page.find_or_create_by_url_hash(Page.hash_url(params[:url]), :url => params[:url])
-      render :json => @page.as_json(:related => params[:related]), :callback => params[:callback]
+      render :json => @page.as_json(:related => @related_count), :callback => params[:callback]
     end
   end
   
   def show    
     @page = Page.find_by_id(params[:id])
     if @page
-      render :json => @page.as_json(:related => params[:related]), :callback => params[:callback]
+      render :json => @page.as_json(:related => @related_count), :callback => params[:callback]
     else
       render :json => { :status => "Error", :message => "Could not find page with id=#{params[:id]}."}, :status => 404
     end
@@ -62,5 +56,11 @@ class PagesController < ApplicationController
         @page.enqueue_scrape
       end
     end
-  end  
+  end
+  
+  private
+  
+  def limit_related
+    @related_count = [(params[:related] || "2").to_i, 25].min
+  end
 end
