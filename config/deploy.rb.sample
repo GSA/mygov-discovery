@@ -40,5 +40,5 @@ end
 
 task :restart_resque_workers, :roles => :web do
   run "#{release_path}/script/stop_resque_workers"
-  run "#{release_path}/script/start_resque_workers"
+  run "RELEASE_PATH=#{release_path} #{release_path}/script/start_resque_workers"
 end
