@@ -9,7 +9,7 @@ class Domain < ActiveRecord::Base
   before_validation :generate_hash
   
   def hostname=(hostname)
-    self.hostname_reversed = hostname.split('.').reverse.join('.')
+    self.hostname_reversed = hostname.split('.').reverse.join('.') + '.'
   end
   
   def hostname
