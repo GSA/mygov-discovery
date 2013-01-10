@@ -16,6 +16,7 @@ gem 'resque'
 gem 'capistrano'
 gem 'markdown-rails'
 gem 'redcarpet'
+gem 'profanity_filter'
 
 # Gems used only for assets and not required
 # in production environments by default.

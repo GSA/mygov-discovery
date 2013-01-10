@@ -1,5 +1,6 @@
 class Page < ActiveRecord::Base
   require 'digest/md5'
+  
   attr_protected :domain_id, :path, :url_hash, :tags
   attr_accessible :url, :tag_list, :title
   attr_accessor :parts, :domain, :related, :rating, :avg_rating
@@ -8,7 +9,7 @@ class Page < ActiveRecord::Base
   has_many :ratings
   acts_as_taggable
 
-  before_validation :parse_path, :generate_hash, :assign_domain
+  before_validation :parse_path, :generate_hash, :assign_domain, :make_pg13
   validates_presence_of :path, :domain_id, :url_hash
   validates_uniqueness_of :path, :scope => :domain_id
   validates_uniqueness_of :url_hash
@@ -95,6 +96,11 @@ class Page < ActiveRecord::Base
     avg_rating 
   end
   
+  def make_pg13
+    ProfanityFilter::Base.replacement_text = ""
+    self.tag_list = ProfanityFilter::Base.clean self.tag_list.to_s
+  end
+  
   private
   
   def assign_domain
@@ -108,4 +114,6 @@ class Page < ActiveRecord::Base
   def generate_hash
     self.url_hash = Page.hash_url(url)
   end
+  
+ 
 end
