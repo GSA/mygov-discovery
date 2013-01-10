@@ -6,6 +6,7 @@ Discovery::Application.routes.draw do
   end
   
   resources :tags, :only => [:index, :show]
+  resources :domains, :only => [:index, :show]
   
   match '/pages/:id' => 'Application#cors', :via => :options
   match '/pages/:id/comments' => 'Application#cors', :via => :options
