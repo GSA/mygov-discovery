@@ -9,6 +9,8 @@ class Comment < ActiveRecord::Base
 
   before_validation :set_user
   
+  self.per_page = 25
+  
   def set_user
     if self.user_id.nil?
       self.user_id = @current_user unless @current_user.nil?
