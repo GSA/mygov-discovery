@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
   
   def index
     page = params[:page] || 1
-    render :json => Comment.where(:page_id => params[:page_id]).paginate(:page => page).as_json(), :callback => params[:callback]
+    render :json => Comment.where(:page_id => params[:page_id]).paginate(:page => page).order("created_at DESC").as_json(), :callback => params[:callback]
   end
-  
+
 end

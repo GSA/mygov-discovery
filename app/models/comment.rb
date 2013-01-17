@@ -16,5 +16,9 @@ class Comment < ActiveRecord::Base
       self.user_id = @current_user unless @current_user.nil?
     end
   end
+    
+  def as_json
+    { :id => id, :page_id => page_id, :body => body, :created_at => created_at }
+  end
   
 end
