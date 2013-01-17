@@ -20,7 +20,7 @@ class Domain < ActiveRecord::Base
   
   def as_json(options={ :pages => 0 })
     json = { :hostname => hostname, :hostname_hash => hostname_hash, :id => id }
-    json = json.merge({ :pages => pages.as_json({:tags => false}) }) unless !options[:pages]
+    json = json.merge({ :pages => pages.as_json({:tags => false}) }) if options[:pages] == true
     json
   end
   
