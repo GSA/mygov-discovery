@@ -62,8 +62,8 @@ class Page < ActiveRecord::Base
 
   def as_json(options={ :related => 0, :tags => 1})
     json = {:id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :title => title, :avg_rating => avg_rating }
-    json = json.merge({ :tags => self.tags, :tag_list => self.tag_list.to_s }) unless !options[:tags]
-    json = json.merge({:related => find_related_tags.slice(0,options[:related])}) unless !options[:related]
+    json = json.merge({ :tags => self.tags, :tag_list => self.tag_list.to_s }) if options[:tags]
+    json = json.merge({:related => find_related_tags.slice(0,options[:related])}) if options[:related]
     json
   end
   

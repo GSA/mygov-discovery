@@ -13,7 +13,7 @@ class PagesController < ApplicationController
   def show    
     @page = Page.find_by_id(params[:id])
     if @page
-      render :json => @page.as_json(:related => @related_count), :callback => params[:callback]
+      render :json => @page.as_json(:related => @related_count, :tags => true), :callback => params[:callback]
     else
       render :json => { :status => "Error", :message => "Could not find page with id=#{params[:id]}."}, :status => 404
     end
