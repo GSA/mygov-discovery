@@ -3,7 +3,7 @@ class Page < ActiveRecord::Base
   
   attr_protected :domain_id, :path, :url_hash, :tags
   attr_accessible :url, :tag_list, :title
-  attr_accessor :parts, :domain, :related, :rating, :avg_rating
+  attr_accessor :parts, :domain, :related, :rating, :avg_rating, :num_rating
    
   belongs_to :domain
   has_many :ratings
@@ -61,7 +61,7 @@ class Page < ActiveRecord::Base
   end
 
   def as_json(options={ :related => 0, :tags => 1})
-    json = {:id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :title => title, :avg_rating => avg_rating }
+    json = {:id => self.id, :url => self.url(), :domain => self.domain(), :path => self.path(), :title => title, :avg_rating => avg_rating, :num_rating => self.num_rating() }
     json = json.merge({ :tags => self.tags, :tag_list => self.tag_list.to_s }) if options[:tags]
     json = json.merge({:related => find_related_tags.slice(0,options[:related])}) if options[:related]
     json
@@ -95,6 +95,10 @@ class Page < ActiveRecord::Base
   def avg_rating
     avg_rating = Rating.average( :value, :conditions => [ 'page_id = ?', id ] ) if avg_rating.nil?
     avg_rating 
+  end
+  
+  def num_rating
+    Rating.count({:conditions => [ "page_id = ?", id]})
   end
   
   def make_pg13
