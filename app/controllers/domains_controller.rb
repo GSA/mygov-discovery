@@ -1,9 +1,7 @@
 class DomainsController < ApplicationController
 
   def show
-   respond_to do |format|
-      format.json { render json: Domain.find(params[:id]), :callback => params[:callback] }
-    end
+    render :json => Domain.find_by_id(params[:id]).as_json(:pages => true), :callback => params[:callback]
   end
   
   def index
