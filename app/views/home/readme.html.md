@@ -3,6 +3,8 @@ MyGov Discovery API
 
 The MyGov Discovery API provides a service to discover related government content. Each page is assigned tags, which are used to find similarly tagged pages.
 
+For more information including a live API query sandbox, see [apidocs.presidentialinnovationfellows.org/mygov-discovery](http://apidocs.presidentialinnovationfellows.org/mygov-discovery)
+
 Pages
 -----
 
@@ -190,6 +192,131 @@ Response:
       "tag_list":"foo, bar",
       "title":null
    }
+]
+```
+
+Domains
+-------
+
+### Retrieve domain by ID
+
+`GET /domains/1`
+
+Response:
+
+```
+{
+    "hostname": "www.usa.gov",
+    "hostname_hash": "ae77be06046330003e995de10534d79f",
+    "id": 2,
+    "pages": [
+        {
+            "id": 2,
+            "url": "http://www.usa.gov/",
+            "domain": {
+                "hostname": "www.usa.gov",
+                "hostname_hash": "ae77be06046330003e995de10534d79f",
+                "id": 2
+            },
+            "path": "/",
+            "title": "USA.gov: The U.S. Government's Official Web Portal",
+            "avg_rating": "3.6",
+            "num_rating": 5
+        },
+        {
+            "id": 205,
+            "url": "http://www.usa.gov/Contact.shtml",
+            "domain": {
+                "hostname": "www.usa.gov",
+                "hostname_hash": "ae77be06046330003e995de10534d79f",
+                "id": 2
+            },
+            "path": "/Contact.shtml",
+            "title": "Contact Your Government | USA.gov",
+            "avg_rating": null,
+            "num_rating": 0
+        }
+        ...
+    ]
+}
+```
+
+### Lookup domains by reverse domain name
+
+`GET /domains?q=gov.whitehouse.`
+
+
+Response:
+
+```
+[
+    {
+        "hostname": "www.whitehouse.gov",
+        "hostname_hash": "2bbabfeb3e5af2bd5f8fcd6f494e5482",
+        "id": 3,
+        "pages": [
+            {
+                "id": 3,
+                "url": "http://www.whitehouse.gov/",
+                "domain": {
+                    "hostname": "www.whitehouse.gov",
+                    "hostname_hash": "2bbabfeb3e5af2bd5f8fcd6f494e5482",
+                    "id": 3
+                },
+                "path": "/",
+                "title": "The White House - President Barack Obama",
+                "avg_rating": "3.5",
+                "num_rating": 4
+            },
+            {
+                "id": 98,
+                "url": "http://www.whitehouse.gov/live/president-obama-speaks-fiscal-cliff-0",
+                "domain": {
+                    "hostname": "www.whitehouse.gov",
+                    "hostname_hash": "2bbabfeb3e5af2bd5f8fcd6f494e5482",
+                    "id": 3
+                },
+                "path": "/live/president-obama-speaks-fiscal-cliff-0",
+                "title": "Featured Videos",
+                "avg_rating": null,
+                "num_rating": 0
+            },
+            {
+                "id": 101,
+                "url": "http://www.whitehouse.gov/about/inside-white-house/west-wing-tour",
+                "domain": {
+                    "hostname": "www.whitehouse.gov",
+                    "hostname_hash": "2bbabfeb3e5af2bd5f8fcd6f494e5482",
+                    "id": 3
+                },
+                "path": "/about/inside-white-house/west-wing-tour",
+                "title": "West Wing Tour",
+                "avg_rating": null,
+                "num_rating": 0
+            }
+            ...
+        ]
+    },
+    {
+        "hostname": "whitehouse.gov",
+        "hostname_hash": "6e18908ffd4924525ee5e2a4ceb32803",
+        "id": 96,
+        "pages": [
+            {
+                "id": 210,
+                "url": "http://whitehouse.gov/",
+                "domain": {
+                    "hostname": "whitehouse.gov",
+                    "hostname_hash": "6e18908ffd4924525ee5e2a4ceb32803",
+                    "id": 96
+                },
+                "path": "/",
+                "title": "The White House - President Barack Obama",
+                "avg_rating": null,
+                "num_rating": 0
+            }
+        ]
+    }
 ]
 ```
 
