@@ -6,7 +6,7 @@ class PagesController < ApplicationController
       render :json => {:status => "Error", :message => "url parameter required"}, :status => 400, :callback => params[:callback]
     else
       @page = Page.find_or_create_by_url_hash(Page.hash_url(params[:url]), :url => params[:url])
-      render :json => @page.as_json(:related => @related_count), :callback => params[:callback]
+      render :json => @page.as_json(:related => @related_count, :tags => true), :callback => params[:callback]
     end
   end
   
