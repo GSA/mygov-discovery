@@ -17,3 +17,5 @@ pickle-email-*.html
 **/.DS_Store
 /config/database.yml
 /config/deploy.rb
+/config/resque.yml
+dump.rdb
