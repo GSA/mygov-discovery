@@ -101,9 +101,8 @@ class Page < ActiveRecord::Base
     Rating.count({:conditions => [ "page_id = ?", id]})
   end
   
-  def make_pg13
-    ProfanityFilter::Base.replacement_text = ""
-    self.tag_list = ProfanityFilter::Base.clean self.tag_list.to_s
+  def all_full_messages
+    self.domain.errors.full_messages + self.errors.full_messages
   end
   
   private
@@ -119,6 +118,9 @@ class Page < ActiveRecord::Base
   def generate_hash
     self.url_hash = Page.hash_url(url)
   end
-  
- 
+
+  def make_pg13
+    ProfanityFilter::Base.replacement_text = ""
+    self.tag_list = ProfanityFilter::Base.clean self.tag_list.to_s
+  end 
 end

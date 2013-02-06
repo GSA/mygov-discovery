@@ -27,6 +27,17 @@ describe "Pages" do
         parsed_json["path"].should == "/"
         parsed_json["related"].should be_empty
       end
+      
+      context "when that url is not from a .gov domain" do
+        it "should return an error" do
+          get "/pages", :url => 'http://example.com', :callback => "callback"
+          response.status.should == 400
+          response.body.should =~/^callback\(.*\)$/
+          parsed_json = JSON.parse(response.body.slice(/^callback\((.*)\)$/, 1))
+          parsed_json["status"].should == "Error"
+          parsed_json["message"].should =~ /Domain must be a \.gov/
+        end
+      end
     end
   end
   
