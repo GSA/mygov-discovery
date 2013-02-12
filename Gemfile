@@ -4,8 +4,7 @@ gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
+gem 'json', "1.7.7"
 gem "therubyracer"
 gem 'acts-as-taggable-on'
 gem 'postrank-uri'
@@ -32,6 +31,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem "rspec-rails"
   gem "capybara"
   gem 'launchy'

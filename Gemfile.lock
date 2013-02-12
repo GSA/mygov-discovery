@@ -70,7 +70,7 @@ GEM
     i18n (0.6.1)
     journey (1.0.4)
     jruby-pageant (1.1.1)
-    json (1.7.6)
+    json (1.7.7)
     launchy (2.1.2)
       addressable (~> 2.3)
     libv8 (3.3.10.4)
@@ -220,6 +220,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   database_cleaner
+  json (= 1.7.7)
   launchy
   markdown-rails
   metainspector
