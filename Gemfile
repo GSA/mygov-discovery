@@ -12,6 +12,7 @@ gem 'addressable'
 gem 'metainspector'
 gem "pismo"
 gem 'resque'
+gem 'resque-ensure-connected'
 gem 'capistrano'
 gem 'markdown-rails'
 gem 'redcarpet'
