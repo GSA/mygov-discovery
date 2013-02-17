@@ -3,13 +3,12 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
   after_filter :cors_set_access_control_headers
   after_filter :say_hi
-  
-  # For all responses in this controller, return the CORS access control headers.
-  def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, OPTIONS'
-    headers['Access-Control-Max-Age'] = "1728000"
+
+  def cors
+    render :nothing => true
   end
+
+  protected
   
   # If this is a preflight OPTIONS request, then short-circuit the
   # request, return only the necessary headers and return an empty
@@ -23,23 +22,21 @@ class ApplicationController < ActionController::Base
       render :text => '', :content_type => 'text/plain'
     end
   end
-  
-  def cors
-    render :nothing => true
+
+  def authenticate
+    ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip || "localhost"
+    @current_user = User.find_or_create_by_ip ip
+    head :unauthorized if @current_user.blocked
   end
-  
+
+  # For all responses in this controller, return the CORS access control headers.
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, OPTIONS'
+    headers['Access-Control-Max-Age'] = "1728000"
+  end
+
   def say_hi
     headers['X-Easter-Egg'] = ':)'
   end
-  
-  def authenticate
-   ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip || "localhost"
-   @current_user = User.find_or_create_by_ip ip
-   
-    if @current_user.blocked
-      head :unauthorized
-    end
-   
-  end
-
 end

@@ -10,6 +10,13 @@ class Domain < ActiveRecord::Base
   
   self.per_page = 25
   
+  class << self
+    
+    def hash_domain(domain)
+      Digest::MD5.hexdigest domain
+    end
+  end
+  
   def hostname=(hostname)
     self.hostname_reversed = hostname.split('.').reverse.join('.') + '.'
   end

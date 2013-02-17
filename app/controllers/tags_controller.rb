@@ -11,5 +11,4 @@ class TagsController < ApplicationController
       render :json => ActsAsTaggableOn::Tag.named_like( params[:q] ), :callback => params[:callback]
     end
   end
-  
 end

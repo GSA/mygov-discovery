@@ -25,28 +25,11 @@ class PagesController < ApplicationController
 
   def update
     @page = Page.find(params[:id])
-    if params[:rating]      
-      #todo: is there a better way to do this without running into mass assignment issues on user_id?
-      rating = Rating.where(:user_id => @current_user.id, :page_id => @page.id).first
-      if rating.nil?
-        rating = Rating.new
-        rating.page_id = @page.id
-        rating.user_id = @current_user.id
-      end
-      rating.value = params[:rating]
-      if !rating.save
-        respond_to do |format|
-           format.json { render json: rating.errors, status: :unprocessable_entity, :callback => params[:callback] }        
-        end
-        return
-      end
-    end
-    respond_to do |format|
-      if @page.update_attributes(params[:page])
-        format.json { head :no_content }
-      else
-        format.json { render json: @page.errors, status: :unprocessable_entity, :callback => params[:callback] }
-      end
+    if @page.update_attributes(params[:page])
+      @current_user.ratings.find_or_initialize_by_page_id(@page.id).update_attributes(:value => params[:rating]) if params[:rating]
+      head :no_content
+    else
+      render json: @page.errors, status: :unprocessable_entity, :callback => params[:callback]
     end
   end
 
@@ -57,7 +40,6 @@ class PagesController < ApplicationController
       unless @page.persisted?
         @page.url = url
         @page.save
-        @page.enqueue_scrape
       end
     end
   end

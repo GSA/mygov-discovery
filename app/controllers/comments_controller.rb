@@ -1,23 +1,24 @@
 class CommentsController < ApplicationController
-  
-  #allow user to create rating by POSTing to /pages/1/comments
-  def create
-    @comment = Comment.new
-    @comment.page_id = params[:page_id]
-    @comment.user_id = @current_user.id
-    @comment.body = params[:body]
-    respond_to do |format|
-      if @comment.save
-        format.json { render json: @comment.as_json, status: :created }
-      else
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  before_filter :assign_page
   
   def index
     page = params[:page] || 1
-    render :json => Comment.where(:page_id => params[:page_id]).paginate(:page => page).order("created_at DESC").as_json(), :callback => params[:callback]
+    render :json => @page.comments.paginate(:page => page).order("created_at DESC"), :callback => params[:callback]
   end
 
+  def create
+    comment = @current_user.comments.new(:body => params[:body])
+    comment.page_id = @page.id
+    if comment.save
+      render json: comment, status: :created
+    else
+      render json: comment.errors, status: :unprocessable_entity
+    end
+  end
+  
+  private
+  
+  def assign_page
+    @page = Page.find_by_id(params[:page_id])
+  end
 end

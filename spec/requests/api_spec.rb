@@ -3,10 +3,7 @@ require 'spec_helper'
 describe "Apis" do
 
   before do
-    @page = Page.new
-    @page.url = "http://foo.gov/bar"
-    @page.tag_list = "foo, bar"
-    @page.save
+    @page = Page.create!(:url => "http://foo.gov/bar", :tag_list => "foo, bar")
   end
   
   describe "GET /" do
@@ -105,11 +102,11 @@ describe "Apis" do
 
   describe "POST /pages/1/ratings.json" do
     context "when a user attempt to create a new rating" do
-      it "should rate the page" do
+      it "should create a new rating for that page" do
         post "/pages/#{@page.id}/ratings.json", :value => 5
         response.code.should == "201"
-        page = Page.find @page.id
-        page.avg_rating.should == 5
+        @page.reload
+        @page.avg_rating.should == 5
       end
     end
   end
