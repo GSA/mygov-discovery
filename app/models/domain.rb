@@ -3,7 +3,7 @@ class Domain < ActiveRecord::Base
   has_many :pages, :order => 'avg_rating DESC'
   attr_accessor :hostname
   attr_accessible :hostname
-  validates_format_of :hostname, :with => /.*\.(gov|mil|fed\.us|si\.edu)/i, :message => "Domain must be a .gov"
+  validates_format_of :hostname, :with => /(\.gov|\.mil|fed\.us|si\.edu)$/i, :message => "Domain must be a .gov"
   validates_uniqueness_of :hostname_reversed
   validates_presence_of :hostname_reversed, :hostname_hash
   before_validation :generate_hash

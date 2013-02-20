@@ -21,6 +21,11 @@ describe Domain do
     domain = Domain.create({:hostname => 'zombo.com'})
     expect { domain.save! }.to raise_error
   end
+  
+  it "should not allow sneaky .com domains" do
+    domain = Domain.create({:hostname => 'usa.gov.zombo.com'})
+    expect { domain.save! }.to raise_error
+  end
 
   it "should not allow .foreign domains domains" do
     domain = Domain.create({:hostname => 'zombo.co.uk'})
