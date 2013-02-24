@@ -18,6 +18,7 @@ gem 'markdown-rails'
 gem 'redcarpet'
 gem 'profanity_filter'
 gem 'will_paginate', '~> 3.0'
+gem 'rb-readline'
 
 # Gems used only for assets and not required
 # in production environments by default.

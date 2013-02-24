@@ -143,6 +143,7 @@ GEM
     rake (10.0.3)
     rash (0.3.2)
       hashie (~> 1.2.0)
+    rb-readline (0.4.2)
     rdiscount (1.6.8)
     rdoc (3.12.1)
       json (~> 1.4)
@@ -238,6 +239,7 @@ DEPENDENCIES
   postrank-uri
   profanity_filter
   rails (= 3.2.11)
+  rb-readline
   redcarpet
   resque
   resque-ensure-connected
