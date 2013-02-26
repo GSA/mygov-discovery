@@ -5,7 +5,7 @@ require 'nokogiri'
 
 namespace :myusa do
   namespace :discovery do
-    task :seed do
+    task :seed => :environment do
       data_url = 'https://explore.data.gov/api/views/deuw-vn8r/rows.json?accessType=DOWNLOAD'
       domains = []
       json =  JSON.parse(open(data_url).read)
