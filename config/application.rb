@@ -62,7 +62,5 @@ module Discovery
     #acts as taggable config
     ActsAsTaggableOn.force_lowercase = true
     ActsAsTaggableOn.remove_unused_tags = true
-    
-    
   end
 end

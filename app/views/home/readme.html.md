@@ -10,7 +10,7 @@ Pages
 
 ### Retrieve a page by url:
 
-`GET /pages/lookup.json?url=http://foo.gov`
+`GET /pages?url=http://foo.gov`
 
 Result:
 
