@@ -12,6 +12,9 @@ class PagesController < ApplicationController
         render :json => {:status => "Error", :message => @page.all_full_messages.join(",")}, :status => 400, :callback => params[:callback]
       end
     end
+    
+    rescue Addressable::URI::InvalidURIError
+      render :json => {:status => "Error", :message => "That is not a proper URL" }, :status => 400, :callback => params[:callback]
   end
   
   def show    
