@@ -14,8 +14,18 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
-**/.DS_Store
 /config/database.yml
 /config/deploy.rb
 /config/resque.yml
 dump.rdb
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
