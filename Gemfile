@@ -19,6 +19,7 @@ gem 'redcarpet'
 gem 'profanity_filter'
 gem 'will_paginate', '~> 3.0'
 gem 'rb-readline'
+gem 'sunspot_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -39,6 +40,7 @@ group :development, :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
+  gem 'sunspot_solr'
 end
 
 group :production do

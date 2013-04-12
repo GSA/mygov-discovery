@@ -12,8 +12,16 @@ class Page < ActiveRecord::Base
   before_validation :set_path, :associate_domain, :generate_hash, :make_pg13
   after_save :enqueue, :if => :url_hash_changed?
   
-  attr_accessible :url, :tag_list, :title
+  attr_accessible :url, :tag_list, :title, :body
 
+  searchable :if => :body do
+    text :title
+    text :body, :more_like_this => true
+    string :domain do
+      self.host
+    end
+  end
+  
   class << self
     
     def hash_url(url)
@@ -50,11 +58,12 @@ class Page < ActiveRecord::Base
   end
   
   def scrape
-    doc = Pismo::Document.new(self.url)
+    doc = strip_text(self.url)
     self.title = doc.title
+    self.body = doc.body
     self.tag_list = Hash[doc.keywords].keys
     self.save
-  end  
+  end
   
   def rating_for_user(user)
     self.ratings.find_by_user_id(user.id)
@@ -85,5 +94,17 @@ class Page < ActiveRecord::Base
   def make_pg13
     ProfanityFilter::Base.replacement_text = ""
     self.tag_list = ProfanityFilter::Base.clean self.tag_list.to_s
-  end 
+  end
+  
+  def strip_text(url)
+    doc = Nokogiri::HTML(file)
+    title = doc.xpath("//title").first.content.squish.truncate(TRUNCATED_TITLE_LENGTH, :separator => " ") rescue nil
+    doc.css('script').each(&:remove)
+    doc.css('style').each(&:remove)
+    body = extract_body_from(doc)
+  end
+  
+  def extract_body_from(doc)
+    remove_common_substrings(scrub_inner_text(Sanitize.clean(nokogiri_doc.at('body').inner_html.encode('utf-8')))) rescue ''
+  end
 end

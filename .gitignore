@@ -18,6 +18,8 @@ pickle-email-*.html
 /config/deploy.rb
 /config/resque.yml
 dump.rdb
+solr/data
+solr/pids
 
 # OS generated files #
 ######################
