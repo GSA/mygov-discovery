@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_filter :cors_preflight_check
   before_filter :authenticate
   after_filter :cors_set_access_control_headers
+  after_filter :set_response_headers
   
   def cors
     render :nothing => true
@@ -33,5 +34,9 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, OPTIONS'
     headers['Access-Control-Max-Age'] = "1728000"
+  end
+  
+  def set_response_headers
+    headers['X-Frame-Options'] = 'SAMEORIGIN'
   end
 end

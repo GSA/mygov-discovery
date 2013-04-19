@@ -14,6 +14,11 @@ describe "Apis" do
         response.code.should == "200"
         response.body.should match /.*retrieve a page by url.*/i
       end
+      
+      it "should prevent clickjacking" do
+        get '/'
+        response.headers['X-Frame-Options'].should == "SAMEORIGIN"
+      end
     end
   end
   

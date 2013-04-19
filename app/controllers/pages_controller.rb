@@ -19,7 +19,7 @@ class PagesController < ApplicationController
     if @page
       render :json => @page.as_json(:related => @related_count, :tags => true), :callback => params[:callback]
     else
-      render :json => { :status => "Error", :message => "Could not find page with id=#{params[:id]}."}, :status => 404
+      render :json => { :status => "Error", :message => "Could not a record of that page. Please check the URL and try again."}, :status => 404
     end
   end
 
