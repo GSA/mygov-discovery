@@ -23,16 +23,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def update
-    @page = Page.find(params[:id])
-    if @page.update_attributes(params[:page])
-      @current_user.ratings.find_or_initialize_by_page_id(@page.id).update_attributes(:value => params[:rating]) if params[:rating]
-      head :no_content
-    else
-      render json: @page.errors, status: :unprocessable_entity, :callback => params[:callback]
-    end
-  end
-
   def no_js
     url = request.referer || params[:url]
     if url

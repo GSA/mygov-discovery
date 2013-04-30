@@ -1,6 +1,6 @@
 Discovery::Application.routes.draw do
   get '/pages/no-js', :to => 'pages#no_js', :as => "pages_no_js"
-  resources :pages, :only => [:index, :show, :create, :update] do
+  resources :pages, :only => [:index, :show] do
     resources :comments, :only => [:index, :create]
     resources :ratings, :only => [:create]
   end

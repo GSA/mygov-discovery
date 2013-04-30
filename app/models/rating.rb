@@ -10,6 +10,10 @@ class Rating < ActiveRecord::Base
 
   attr_accessible :value
 
+  def as_json
+    super(:only => [:page_id, :value])
+  end
+    
   private
   
   def update_average_rating

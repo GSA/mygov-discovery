@@ -68,32 +68,6 @@ describe "Apis" do
     end
   end
   
-  describe "PUT /pages/1.json" do
-    context "when a user attempts to update a page" do
-    
-      it "should update the page's rating" do
-        put "/pages/#{@page.id}.json?rating=5"
-        response.code.should == "204"
-        page = Page.find( @page.id )
-        page.avg_rating.should == 5
-      end
-      
-      it "should update the page's tags" do
-        put "/pages/#{@page.id}.json", :page => { :tag_list => "a, b, c"}
-        response.code.should == "204"
-        page = Page.find( @page.id )
-        page.tag_list.to_s.should == "a, b, c"
-      end
-      
-      it "should return proper CORS headers" do
-        put "/pages/#{@page.id}.json", :page => { :tag_list => "foo, bar"}
-        response.headers["Access-Control-Allow-Methods"].should == "POST, GET, PUT, OPTIONS"
-        response.headers["Access-Control-Allow-Origin"].should == "*"
-      end
-      
-    end
-  end
-  
   describe "POST /pages/1/comments.json" do
     context "when a user attempt to createa a new comment" do
       it "should create a new comment" do

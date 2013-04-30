@@ -13,5 +13,4 @@ class DomainsController < ApplicationController
       render :json => Domain.where("hostname_reversed LIKE ?", q).paginate(:page => page).as_json(:pages => true), :callback => params[:callback]
     end
   end
-  
 end
