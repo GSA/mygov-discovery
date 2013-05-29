@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'mysql2'
 gem 'json', "1.7.7"
 gem "therubyracer"
 gem 'acts-as-taggable-on'
@@ -33,14 +33,9 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem "rspec-rails"
   gem "capybara"
   gem 'launchy'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-end
-
-group :production do
-  gem 'mysql2'
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110165105) do
+ActiveRecord::Schema.define(:version => 20130529122539) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20130110165105) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "avg_rating"
+    t.decimal  "avg_rating", :precision => 10, :scale => 0
   end
 
   add_index "pages", ["avg_rating"], :name => "index_pages_on_avg_rating"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20130110165105) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "ip"
