@@ -6,7 +6,8 @@ after_failure:
   - ruby env
 before_script:
   - cp config/database.yml.example config/database.yml
-  - mysql -e 'create database mygov-discovery_test;'
+  - cp config/resque.yml.example config/resque.yml
+  - mysql -e 'create database mygov_discovery_test;'
 install:
   - bundle install --without development
 language: ruby
