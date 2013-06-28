@@ -19,7 +19,6 @@ gem 'redcarpet'
 gem 'profanity_filter'
 gem 'will_paginate', '~> 3.0'
 gem 'rb-readline'
-gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
 # in production environments by default.
