@@ -39,4 +39,5 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem "factory_girl_rails", "~> 4.0"
+  gem "brakeman", :require => false
 end
