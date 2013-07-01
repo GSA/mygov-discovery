@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/GSA-OCSIT/mygov-discovery.png)](https://codeclimate.com/github/GSA-OCSIT/mygov-discovery)
+
 MyGov Discovery API
 ===================
 
