@@ -37,6 +37,6 @@ class PagesController < ApplicationController
   private
 
   def limit_related
-    @related_count = [(params[:related] || Settings.maximum_related_results_display).to_i].min
+    @related_count = [(params[:related]), Settings.maximum_related_results_display].compact.map(&:to_i).min
   end
 end
