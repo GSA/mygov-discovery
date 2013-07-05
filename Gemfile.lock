@@ -159,6 +159,8 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails_config (0.3.3)
+      activesupport (>= 3.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -279,6 +281,7 @@ DEPENDENCIES
   profanity_filter
   pry-rails
   rails (= 3.2.13)
+  rails_config
   rb-readline
   redcarpet
   resque
