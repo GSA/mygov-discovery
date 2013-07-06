@@ -30,7 +30,3 @@ dump.rdb
 Icon?
 ehthumbs.db
 Thumbs.db
-
-config/settings.local.yml
-config/settings/*.local.yml
-config/environments/*.local.yml
