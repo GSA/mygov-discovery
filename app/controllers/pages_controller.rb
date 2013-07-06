@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_filter :limit_related, :only => [:index, :show]
-  
+
   def index
     unless params[:url]
       render :json => {:status => "Error", :message => "url parameter required"}, :status => 400, :callback => params[:callback]
@@ -13,8 +13,8 @@ class PagesController < ApplicationController
       end
     end
   end
-  
-  def show    
+
+  def show
     @page = Page.find_by_id(params[:id])
     if @page
       render :json => @page.as_json(:related => @related_count, :tags => true), :callback => params[:callback]
@@ -33,10 +33,10 @@ class PagesController < ApplicationController
       end
     end
   end
-  
+
   private
-  
+
   def limit_related
-    @related_count = [(params[:related] || "2").to_i, 25].min
+    @related_count = [(params[:related]), Settings.maximum_related_results_display].compact.map(&:to_i).min
   end
 end
