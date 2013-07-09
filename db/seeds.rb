@@ -1,7 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Page.all.map(&:destroy)
+Page.all.each { |page| page.tag_list=[] }
+
+#Create page with same url as govbar dev config 'http://fabulous.url.gov'
+FactoryGirl.create(:tagged_page)
+
+#Create multiple pages with the same tag
+(1..5).each { |num| FactoryGirl.create(:tagged_page, url: "www.testurl#{num}.gov") }
