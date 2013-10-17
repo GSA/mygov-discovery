@@ -2,6 +2,7 @@
 echo "Starting Resque workers at "`date`
 RELEASE_PATH=$1
 cd $RELEASE_PATH
+source /usr/local/rvm/scripts/rvm
 for i in {1..2}
 do
   RAILS_ENV=production QUEUE=page_scraper_queue nohup bundle exec rake environment resque:work > $RELEASE_PATH/log/resque.$i.log 2>&1 &
