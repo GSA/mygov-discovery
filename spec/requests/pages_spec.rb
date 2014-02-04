@@ -38,6 +38,17 @@ describe "Pages" do
           parsed_json["message"].should =~ /Domain must be a \.gov/
         end
       end
+
+      context "when the url is malformed" do
+        it "should return an error" do
+          get "/pages", :url => 'http:', :callback => "callback"
+          response.status.should == 400
+          response.body.should =~/^callback\(.*\)$/
+          parsed_json = JSON.parse(response.body.slice(/^callback\((.*)\)$/, 1))
+          parsed_json["status"].should == "Error"
+          parsed_json["message"].should == 'That is not a proper URL'
+        end
+      end
     end
   end
   
